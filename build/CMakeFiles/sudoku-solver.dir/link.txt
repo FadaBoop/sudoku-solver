@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/sudoku-solver.dir/link.d "CMakeFiles/sudoku-solver.dir/src/main.cpp.o" -o sudoku-solver  /usr/lib/libsfml-graphics.so.3.0.1 /usr/lib/libsfml-window.so.3.0.1 /usr/lib/libsfml-system.so.3.0.1

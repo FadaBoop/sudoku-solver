@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/timur/projects/sudoku-solver/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
