@@ -1,8 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <array>
+#include <chrono>
+#include <thread>
 
 using Array3D = std::array<std::array<int, 9>, 9>;
+int iterations = 0;
 
 int validateNumber(Array3D arrayToCheck, int verticalPos, int horizontalPos){
     int count = 0;
@@ -36,7 +39,7 @@ int validateNumber(Array3D arrayToCheck, int verticalPos, int horizontalPos){
     return 1;
 }
 
-Array3D solve(Array3D originalArray, Array3D modifiedArray){
+void solve(Array3D originalArray, Array3D &modifiedArray){
     int i = 0, j;
     while(i<9){ // loop for numbers
         j = 0;
@@ -61,10 +64,13 @@ Array3D solve(Array3D originalArray, Array3D modifiedArray){
             }
             else
                 j++;
+            iterations++;
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            std::cout << "\033[2J\033[1;1H";
+            std::cout << iterations << std::endl;
         }
         i++;
     }
-    return modifiedArray;
 }
 
 int main()
@@ -101,20 +107,20 @@ int main()
 
     // ARRAY
     Array3D sudokuNums = {{
-    {{5,3,0, 0,7,0, 0,0,0}},
-    {{6,0,0, 1,9,5, 0,0,0}},
-    {{0,9,8, 0,0,0, 0,6,0}},
+    {{8,0,0, 0,0,0, 0,0,0}},
+    {{0,0,3, 6,0,0, 0,0,0}},
+    {{0,7,0, 0,9,0, 2,0,0}},
 
-    {{8,0,0, 0,6,0, 0,0,3}},
-    {{4,0,0, 8,0,3, 0,0,1}},
-    {{7,0,0, 0,2,0, 0,0,6}},
+    {{0,5,0, 0,0,7, 0,0,0}},
+    {{0,0,0, 0,4,5, 7,0,0}},
+    {{0,0,0, 1,0,0, 0,3,0}},
 
-    {{0,6,0, 0,0,0, 2,8,0}},
-    {{0,0,0, 4,1,9, 0,0,5}},
-    {{0,0,0, 0,8,0, 0,7,9}}}};
+    {{0,0,1, 0,0,0, 0,6,8}},
+    {{0,0,8, 5,0,0, 0,1,0}},
+    {{0,9,0, 0,0,0, 4,0,0}}}};
 
     Array3D solvedNums = sudokuNums;
-    solvedNums = solve(sudokuNums, solvedNums);
+    std::thread solving(solve, sudokuNums, std::ref(solvedNums));
 
     while (window.isOpen())
     {
@@ -165,6 +171,7 @@ int main()
             text.setPosition({xTextStart,yTextStart});
             text.move({0.0f, yPosSmallLines*(i+1)});
         }
+
         window.display();
     }
 }

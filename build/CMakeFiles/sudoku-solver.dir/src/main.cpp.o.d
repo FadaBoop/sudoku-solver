@@ -253,4 +253,6 @@ CMakeFiles/sudoku-solver.dir/src/main.cpp.o: \
  /usr/include/SFML/System/FileInputStream.hpp \
  /usr/include/SFML/System/InputStream.hpp \
  /usr/include/SFML/System/MemoryInputStream.hpp \
- /usr/include/SFML/System/Sleep.hpp /usr/include/c++/15.2.1/iostream
+ /usr/include/SFML/System/Sleep.hpp /usr/include/c++/15.2.1/iostream \
+ /usr/include/c++/15.2.1/thread /usr/include/c++/15.2.1/bits/std_thread.h \
+ /usr/include/c++/15.2.1/bits/this_thread_sleep.h
