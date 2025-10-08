@@ -40,13 +40,16 @@ int validateNumber(Array3D arrayToCheck, int verticalPos, int horizontalPos){
 }
 
 void solve(Array3D originalArray, Array3D &modifiedArray){
+    auto start = std::chrono::high_resolution_clock::now();
     int i = 0, j;
     while(i<9){ // loop for numbers
         j = 0;
         while(j<9){ // loop for numbers
             if (originalArray[i][j] == 0){
-                while(validateNumber(modifiedArray, i, j) == 0 || modifiedArray[i][j]==0)
+                while(validateNumber(modifiedArray, i, j) == 0 || modifiedArray[i][j]==0){
                     modifiedArray[i][j] = modifiedArray[i][j]+1;
+                    iterations++;
+                }
                 if (modifiedArray[i][j] > 9){
                     modifiedArray[i][j] = 0;
                     do{
@@ -64,13 +67,16 @@ void solve(Array3D originalArray, Array3D &modifiedArray){
             }
             else
                 j++;
-            iterations++;
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
-            std::cout << "\033[2J\033[1;1H";
-            std::cout << iterations << std::endl;
+            // std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            // std::cout << "\033[2J\033[1;1H";
+            // std::cout << iterations << std::endl;
         }
         i++;
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    std::cout << "DFS took " << elapsed.count() << " seconds\n";
+    std::cout << "Total iterations: " << iterations << std::endl;
 }
 
 int main()
@@ -107,17 +113,17 @@ int main()
 
     // ARRAY
     Array3D sudokuNums = {{
-    {{8,0,0, 0,0,0, 0,0,0}},
-    {{0,0,3, 6,0,0, 0,0,0}},
-    {{0,7,0, 0,9,0, 2,0,0}},
+    {{0,0,0, 0,0,0, 0,0,0}},
+    {{0,0,0, 0,0,4, 5,0,2}},
+    {{0,2,0, 0,5,0, 1,0,7}},
 
-    {{0,5,0, 0,0,7, 0,0,0}},
-    {{0,0,0, 0,4,5, 7,0,0}},
-    {{0,0,0, 1,0,0, 0,3,0}},
+    {{0,0,9, 0,0,0, 4,0,0}},
+    {{8,0,0, 0,0,0, 0,9,1}},
+    {{4,0,0, 6,0,0, 0,3,0}},
 
-    {{0,0,1, 0,0,0, 0,6,8}},
-    {{0,0,8, 5,0,0, 0,1,0}},
-    {{0,9,0, 0,0,0, 4,0,0}}}};
+    {{0,0,8, 0,6,0, 0,0,0}},
+    {{0,0,1, 7,9,0, 3,0,0}},
+    {{0,0,0, 0,1,8, 0,5,0}}}};
 
     Array3D solvedNums = sudokuNums;
     std::thread solving(solve, sudokuNums, std::ref(solvedNums));
