@@ -1,3 +1,0 @@
-/home/timur/projects/sudoku-solver/build/CMakeFiles/sudoku-solver.dir
-/home/timur/projects/sudoku-solver/build/CMakeFiles/edit_cache.dir
-/home/timur/projects/sudoku-solver/build/CMakeFiles/rebuild_cache.dir
